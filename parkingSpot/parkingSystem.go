@@ -1,3 +1,85 @@
+// _________________________            ___________________
+// |         ParkingLot      |          |      ParkingSpot  |
+// |-------------------------|          |------------------|
+// | - capacity: int         |          | - spotNumber: int|
+// | - availableSpots: int   |          | - isOccupied: bool|
+// | - floors: List<Floor>   |          | - type: SpotType |
+// | - lock: Lock            |          | - vehicle: Vehicle |
+// |-------------------------|          |__________________|
+// | + ParkingLot(capacity: int)|
+// | + parkVehicle(vehicle: Vehicle): bool|
+// | + removeVehicle(vehicle: Vehicle): bool|
+// | + getAvailableSpots(): int|
+// | + getOccupiedSpots(): int|
+// | + calculateFee(vehicle: Vehicle): float64|
+// | + makePayment(vehicle: Vehicle, amount: float64): bool|
+// | + generateBill(vehicle: Vehicle): Bill|
+// |_________________________|
+
+//          __________________
+//         |      Vehicle     |
+//         |------------------|
+//         | - licensePlate: string|
+//         | - size: int          |
+//         |____________________|
+
+//                ^
+//                |
+//                |
+//          ______|______
+//         |             |
+//         |             |
+//  _______|______       |    ___________________
+// |   Car        |      |   |     Bus           |
+// |-------------|      |   |-------------------|
+// |             |      |   |                   |
+// |             |      |   |                   |
+// |_____________|      |   |___________________|
+
+//                ^
+//                |
+//                |
+//          ______|______
+//         |             |
+//         |             |
+//  _______|______       |
+// |  Motorbike  |      |
+// |-------------|      |
+// |             |      |
+// |             |      |
+// |_____________|      |
+
+//  ___________________
+// |     SpotType     |
+// |-------------------|
+// | - name: string    |
+// | - hourlyRate: float64|
+// |___________________|
+
+//  ___________________
+// |       Bill        |
+// |-------------------|
+// | - billID: string  |
+// | - vehicle: Vehicle|
+// | - amount: float64 |
+// |___________________|
+
+//  ___________________
+// |     Payment       |
+// |-------------------|
+// | - paymentID: string|
+// | - billID: string  |
+// | - amount: float64 |
+// | - isPaid: bool    |
+// |___________________|
+
+//  ___________________
+// |       Floor       |
+// |-------------------|
+// | - level: int      |
+// | - spots: List<ParkingSpot> |
+// |___________________|
+
 package parkingSpot
 
 import "fmt"
