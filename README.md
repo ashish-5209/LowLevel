@@ -6,3 +6,5 @@ Enter:-
   2 -> Elevator System
   3 -> Car Rental
   4 -> Logging System
+  5 -> Snake and Ladder Game
+  6 -> ATM System

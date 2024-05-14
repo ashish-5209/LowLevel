@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"lowleveldesign/atmSystem"
 	"lowleveldesign/carRental"
 	"lowleveldesign/elevator_system"
 	"lowleveldesign/loggingSystem"
@@ -19,6 +20,7 @@ func main() {
 	lldMap[3] = "Car Rental"
 	lldMap[4] = "Logging System"
 	lldMap[5] = "Snake Ladder Game"
+	lldMap[6] = "ATM System"
 	fmt.Println("Enter value to show lld design:-")
 
 	for key, value := range lldMap {
@@ -47,6 +49,9 @@ func main() {
 	case 5:
 		fmt.Println(lldMap[5])
 		snakeLadderGame.App()
+	case 6:
+		fmt.Println(lldMap[6])
+		atmSystem.App()
 	default:
 		fmt.Println("Invalid input")
 	}
