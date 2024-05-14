@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"lowleveldesign/carRental"
 	"lowleveldesign/elevator_system"
+	"lowleveldesign/loggingSystem"
 	"lowleveldesign/parkingSpot"
 	"lowleveldesign/tic_toc_game"
 )
@@ -15,6 +16,7 @@ func main() {
 	lldMap[1] = "Parking Spot"
 	lldMap[2] = "Elevator System"
 	lldMap[3] = "Car Rental"
+	lldMap[4] = "Logging System"
 	fmt.Println("Enter value to show lld design:-")
 
 	for key, value := range lldMap {
@@ -37,6 +39,9 @@ func main() {
 	case 3:
 		fmt.Println(lldMap[3])
 		carRental.App()
+	case 4:
+		fmt.Println(lldMap[4])
+		loggingSystem.App()
 	default:
 		fmt.Println("Invalid input")
 	}
