@@ -1,3 +1,42 @@
+// +--------------------------------------+
+// |                ATM                   |
+// +--------------------------------------+
+// | - Balance: float64                  |
+// | - CardInserted: bool                |
+// | - PinEntered: bool                  |
+// +--------------------------------------+
+// | + InsertCard()                      |
+// | + EnterPin(pin string)              |
+// | + Withdraw(amount float64)          |
+// | + CheckBalance() -> float64         |
+// | + EjectCard()                       |
+// +--------------------------------------+
+
+// +--------------------------------------+
+// |              Bank                    |
+// +--------------------------------------+
+// | - Accounts: map[string]*Account     |
+// | - Notes: map[float64]int            |
+// +--------------------------------------+
+// | + VerifyPin(cardNo string, pin string) -> bool |
+// | + GetBalance(cardNo string) -> float64 |
+// | + Withdraw(cardNo string, amount float64) -> bool |
+// | + GetNotes() map[float64]int                   |
+// | + UpdateNotes(amount float64) bool            |
+// +--------------------------------------+
+
+// +--------------------------------------+
+// |               Account                |
+// +--------------------------------------+
+// | - CardNo: string                    |
+// | - Pin: string                       |
+// | - Balance: float64                  |
+// +--------------------------------------+
+// | + VerifyPin(pin string) -> bool     |
+// | + GetBalance() -> float64           |
+// | + Withdraw(amount float64) -> bool |
+// +--------------------------------------+
+
 package atmSystem
 
 func App() {
