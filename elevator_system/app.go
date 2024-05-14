@@ -37,7 +37,7 @@
 
 package elevator_system
 
-func ElevatorSystem() {
+func App() {
 	building := NewBuilding(10, 1, MinTime)
 
 	// Example: Elevator 1

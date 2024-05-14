@@ -33,7 +33,7 @@ import (
 	"fmt"
 )
 
-func PlayGame() {
+func App() {
 	gm := GameManager{
 		Games: make(map[string]*Game),
 	}

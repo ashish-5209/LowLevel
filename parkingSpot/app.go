@@ -84,7 +84,7 @@ package parkingSpot
 
 import "fmt"
 
-func ParkingSystem() {
+func App() {
 	// Initialize parking lot with a capacity of 10 and 3 floors
 	parkingLot := NewParkingLot(10, 3)
 
