@@ -6,6 +6,7 @@ import (
 	"lowleveldesign/carRental"
 	"lowleveldesign/elevator_system"
 	"lowleveldesign/loggingSystem"
+	"lowleveldesign/lruCache"
 	"lowleveldesign/parkingSpot"
 	"lowleveldesign/snakeLadderGame"
 	"lowleveldesign/tic_toc_game"
@@ -21,6 +22,7 @@ func main() {
 	lldMap[4] = "Logging System"
 	lldMap[5] = "Snake Ladder Game"
 	lldMap[6] = "ATM System"
+	lldMap[7] = "LRU Cache"
 	fmt.Println("Enter value to show lld design:-")
 
 	for key, value := range lldMap {
@@ -52,6 +54,9 @@ func main() {
 	case 6:
 		fmt.Println(lldMap[6])
 		atmSystem.App()
+	case 7:
+		fmt.Println(lldMap[7])
+		lruCache.App()
 	default:
 		fmt.Println("Invalid input")
 	}

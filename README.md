@@ -8,3 +8,4 @@ Enter:-
   4 -> Logging System
   5 -> Snake and Ladder Game
   6 -> ATM System
+  7 -> LRU Cache
