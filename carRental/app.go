@@ -1,55 +1,149 @@
+// CarRentalSystem
 // +--------------------------------------------------+
 // |               CarRentalSystem                    |
 // +--------------------------------------------------+
-// | - Vehicles: []*Vehicle                          |
-// | - Bills: []*Bill                                |
+// | - Locations: []Location                         |
+// | - Users: []User                                 |
+// | - Bills: []Bill                                 |
 // +--------------------------------------------------+
-// | + NewCarRentalSystem()                          |
-// | + AddVehicle(id int, vehicleType VehicleType,   |
-// |               location string)                   |
-// | + ReserveVehicle(vehicleID int, customerID      |
-// |               string, pickupTime, dropTime      |
-// |               time.Time)                        |
-// | + CancelReservation(vehicleID int)              |
-// | + Pickup(vehicleID int)                         |
-// | + Drop(vehicleID int, location string)          |
-// | + GenerateBill(vehicleID int, amount float64,  |
-// |               paymentType PaymentType)          |
+// | + SearchVehicle(location Location, startDate time.Time, endDate time.Time) []Vehicle |
+// | + MakeReservation(user User, vehicle Vehicle, store Store, location Location, startDate time.Time, endDate time.Time) Reservation |
+// | + GenerateBill(reservation Reservation) Bill   |
+// | + MakePayment(bill Bill, paymentMethod string) Payment |
 // +--------------------------------------------------+
 
+// User
 // +--------------------------------------------------+
-// |                    Vehicle                       |
+// |                    User                           |
 // +--------------------------------------------------+
-// | - ID: int                                        |
-// | - Type: VehicleType                             |
-// | - Status: VehicleStatus                         |
-// | - Location: string                              |
-// | - Reserved: bool                                |
-// | - ReservedBy: string                            |
-// | - ReservedAt: time.Time                         |
-// | - ReservedTill: time.Time                       |
+// | - UserID: int                                    |
+// | - Name: string                                  |
+// | - Email: string                                 |
+// | - PhoneNumber: string                           |
+// | - LicenseNumber: string                         |
 // +--------------------------------------------------+
-// | + NewVehicle(id int, vehicleType VehicleType,   |
-// |               location string)                   |
+// | + NewUser(id int, name string, email string, phone string, license string) |
 // +--------------------------------------------------+
 
+// Location
 // +--------------------------------------------------+
-// |                     Bill                         |
+// |                  Location                        |
 // +--------------------------------------------------+
-// | - ID: int                                        |
-// | - Amount: float64                               |
-// | - PaymentType: PaymentType                      |
+// | - LocationID: int                               |
+// | - Name: string                                  |
+// | - Stores: []Store                               |
 // +--------------------------------------------------+
-// | + NewBill(id int, amount float64,              |
-// |               paymentType PaymentType)          |
+// | + NewLocation(id int, name string)              |
+// | + AddStore(store Store)                         |
 // +--------------------------------------------------+
 
+// Store
 // +--------------------------------------------------+
-// |                Enumerations                      |
+// |                    Store                         |
 // +--------------------------------------------------+
-// | - VehicleType                                   |
-// | - VehicleStatus                                 |
-// | - PaymentType                                   |
+// | - StoreID: int                                  |
+// | - Name: string                                 |
+// | - Address: string                              |
+// | - Vehicles: []Vehicle                           |
+// +--------------------------------------------------+
+// | + NewStore(id int, name string, address string) |
+// | + AddVehicle(vehicle Vehicle)                   |
+// +--------------------------------------------------+
+
+// Vehicle (Interface)
+// +--------------------------------------------------+
+// |                    Vehicle (interface)           |
+// +--------------------------------------------------+
+// | + GetVehicleType() string                       |
+// | + GetPricePerDay() float64                      |
+// | + GetID() int                                   |
+// | + IsAvailable() bool                            |
+// | + SetStatus(status string)                      |
+// +--------------------------------------------------+
+
+// BaseVehicle
+// +--------------------------------------------------+
+// |                  BaseVehicle                     |
+// +--------------------------------------------------+
+// | - VehicleID: int                                |
+// | - Model: string                                |
+// | - Make: string                                 |
+// | - Year: int                                    |
+// | - PricePerDay: float64                         |
+// | - Status: string // Available, Reserved, Out of Service |
+// +--------------------------------------------------+
+// | + GetID() int                                  |
+// | + IsAvailable() bool                           |
+// | + SetStatus(status string)                     |
+// +--------------------------------------------------+
+
+// Car
+// +--------------------------------------------------+
+// |                    Car                           |
+// +--------------------------------------------------+
+// | - NumberOfDoors: int                            |
+// +--------------------------------------------------+
+// | + GetVehicleType() string                       |
+// | + GetPricePerDay() float64                      |
+// +--------------------------------------------------+
+
+// Bike
+// +--------------------------------------------------+
+// |                    Bike                          |
+// +--------------------------------------------------+
+// | - HasGear: bool                                 |
+// +--------------------------------------------------+
+// | + GetVehicleType() string                       |
+// | + GetPricePerDay() float64                      |
+// +--------------------------------------------------+
+
+// Reservation
+// +--------------------------------------------------+
+// |                 Reservation                      |
+// +--------------------------------------------------+
+// | - ReservationID: int                            |
+// | - UserID: int                                   |
+// | - VehicleID: int                                |
+// | - StoreID: int                                  |
+// | - LocationID: int                               |
+// | - StartDate: time.Time                          |
+// | - EndDate: time.Time                            |
+// | - TotalAmount: float64                          |
+// | - Status: string // Reserved, Completed, Cancelled |
+// +--------------------------------------------------+
+// | + NewReservation(id int, userID int, vehicleID int, storeID int, locationID int, startDate time.Time, endDate time.Time) |
+// +--------------------------------------------------+
+
+// Bill
+// +--------------------------------------------------+
+// |                    Bill                          |
+// +--------------------------------------------------+
+// | - BillID: int                                   |
+// | - ReservationID: int                           |
+// | - UserID: int                                  |
+// | - VehicleID: int                               |
+// | - TotalAmount: float64                         |
+// | - DiscountAmount: float64                      |
+// | - TaxAmount: float64                           |
+// | - FinalAmount: float64                         |
+// | - PaymentStatus: string // Paid, Unpaid         |
+// +--------------------------------------------------+
+// | + NewBill(id int, reservationID int, amount float64, discountAmount float64, taxAmount float64, finalAmount float64) |
+// +--------------------------------------------------+
+
+// Payment
+// +--------------------------------------------------+
+// |                    Payment                       |
+// +--------------------------------------------------+
+// | - PaymentID: int                                |
+// | - BillID: int                                  |
+// | - UserID: int                                  |
+// | - Amount: float64                              |
+// | - PaymentMethod: string // CreditCard, DebitCard, NetBanking |
+// | - PaymentStatus: string // Success, Failed     |
+// | - PaymentDate: time.Time                        |
+// +--------------------------------------------------+
+// | + NewPayment(id int, billID int, userID int, amount float64, paymentMethod string) |
 // +--------------------------------------------------+
 
 package carRental
@@ -60,36 +154,72 @@ import (
 )
 
 func App() {
-	fmt.Println("Statrt")
-	carRental := NewCarRentalSystem()
-
-	// Adding vehicles
-	carRental.AddVehicle(1, Car, "Location A")
-	carRental.AddVehicle(2, Car, "Location B")
-	carRental.AddVehicle(3, Bike, "Location C")
-
-	// Reserving a vehicle
-	err := carRental.ReserveVehicle(1, "Customer1", time.Now(), time.Now().Add(time.Hour*24))
-	if err != nil {
-		fmt.Println("Error reserving vehicle:", err)
+	// Example usage
+	user := User{
+		UserID:        1,
+		Name:          "John Doe",
+		Email:         "john.doe@example.com",
+		PhoneNumber:   "123-456-7890",
+		LicenseNumber: "XYZ12345",
 	}
 
-	// Pickup
-	err = carRental.Pickup(1)
-	if err != nil {
-		fmt.Println("Error picking up vehicle:", err)
+	location := Location{
+		LocationID: 1,
+		Name:       "City Center",
+		Stores: []Store{
+			{
+				StoreID: 1,
+				Name:    "Main Store",
+				Address: "123 Main St",
+				Vehicles: []Vehicle{
+					&Car{
+						BaseVehicle: BaseVehicle{
+							VehicleID:   1,
+							Model:       "Sedan",
+							Make:        "Toyota",
+							Year:        2020,
+							PricePerDay: 50.0,
+							Status:      "Available",
+						},
+						NumberOfDoors: 4,
+					},
+					&Bike{
+						BaseVehicle: BaseVehicle{
+							VehicleID:   2,
+							Model:       "Sport",
+							Make:        "Yamaha",
+							Year:        2021,
+							PricePerDay: 20.0,
+							Status:      "Available",
+						},
+						HasGear: true,
+					},
+				},
+			},
+		},
 	}
 
-	// Dropping the vehicle
-	err = carRental.Drop(1, "Location D")
-	if err != nil {
-		fmt.Println("Error dropping vehicle:", err)
+	startDate := time.Now()
+	endDate := startDate.AddDate(0, 0, 3) // 3 days rental
+
+	// Search for available vehicles
+	availableVehicles := SearchVehicle(location, startDate, endDate)
+	fmt.Printf("Available vehicles:\n")
+	for _, vehicle := range availableVehicles {
+		fmt.Println(vehicle)
 	}
 
-	// Generating bill
-	err = carRental.GenerateBill(1, 50.0, CreditCard)
-	if err != nil {
-		fmt.Println("Error generating bill:", err)
+	if len(availableVehicles) > 0 {
+		// Make a reservation for the first available vehicle
+		reservation := MakeReservation(user, availableVehicles[0], location.Stores[0], location, startDate, endDate)
+		fmt.Printf("Reservation made: %+v\n", reservation)
+
+		// Generate bill for the reservation
+		bill := GenerateBill(reservation)
+		fmt.Printf("Generated bill: %+v\n", bill)
+
+		// Make payment for the bill
+		payment := MakePayment(bill, "CreditCard")
+		fmt.Printf("Payment made: %+v\n", payment)
 	}
-	fmt.Println(*carRental.Bills[0])
 }

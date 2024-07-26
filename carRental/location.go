@@ -1,30 +1,23 @@
 package carRental
 
-import (
-	"fmt"
-	"time"
-)
+import "time"
 
-func (c *CarRentalSystem) Pickup(vehicleID int) error {
-	for _, vehicle := range c.Vehicles {
-		if vehicle.ID == vehicleID && vehicle.Reserved && vehicle.ReservedTill.After(time.Now()) {
-			vehicle.Location = "In Transit"
-			return nil
-		}
-	}
-	return fmt.Errorf("vehicle with ID %d is not available for pickup", vehicleID)
+// Location represents a geographical location where stores are present.
+type Location struct {
+	LocationID int
+	Name       string
+	Stores     []Store
 }
 
-func (c *CarRentalSystem) Drop(vehicleID int, location string) error {
-	for _, vehicle := range c.Vehicles {
-		if vehicle.ID == vehicleID && vehicle.Location == "In Transit" {
-			vehicle.Location = location
-			vehicle.Reserved = false
-			vehicle.ReservedBy = ""
-			vehicle.ReservedAt = time.Time{}
-			vehicle.ReservedTill = time.Time{}
-			return nil
+// SearchVehicle allows a user to search for available vehicles in a location within a date range.
+func SearchVehicle(location Location, startDate, endDate time.Time) []Vehicle {
+	var availableVehicles []Vehicle
+	for _, store := range location.Stores {
+		for _, vehicle := range store.Vehicles {
+			if vehicle.IsAvailable() {
+				availableVehicles = append(availableVehicles, vehicle)
+			}
 		}
 	}
-	return fmt.Errorf("vehicle with ID %d is not available for drop at location %s", vehicleID, location)
+	return availableVehicles
 }
